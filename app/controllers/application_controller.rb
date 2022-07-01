@@ -132,4 +132,9 @@ class ApplicationController < Sinatra::Base
 
   # end
 
+  get "/balance/?phone" do
+    bal = Account.find_by(phoone: params[:phone])
+    bal.to_json
+  end
+
 end

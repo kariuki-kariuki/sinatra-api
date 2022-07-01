@@ -1,6 +1,5 @@
 source "https://rubygems.org"
 
-ruby "3.0.3"
 
 # A DSL for quickly creating web applications
 # https://github.com/sinatra/sinatra

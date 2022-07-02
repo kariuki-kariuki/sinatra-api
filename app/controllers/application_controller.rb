@@ -123,17 +123,23 @@ class ApplicationController < Sinatra::Base
     bal.to_json
   end
 
-  patch "/patch" do
+  patch "/patch/receiver" do
     send_to = Account.find_by(phone: params[:receiver])
+    # amt = params[:text_massage]
+    # puts amt
     send_amount = send_to.balance
-    send_to.balance = send_amount + params[:text_massage]
+    send_to.balance = send_amount.to_i + (params[:text_massage].to_i)
     send_to.save
-    send_from = Account.find_by(phone: params[:sender])
-    send_amount_to = send_from.balance
-    send_from.balance = send_amount_to - params[:text_massage]
-    send_from.save
+    
     
     {sucess: "successfull"}.to_json
+  end
+ 
+  patch "/patch/sender" do
+    send_from = Account.find_by(phone: params[:sender])
+    send_amount_to = send_from.balance
+    send_from.balance = send_amount_to.to_f - (params[:text_massage].to_f)
+    send_from.save
   end
 
 end

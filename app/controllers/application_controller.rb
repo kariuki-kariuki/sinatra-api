@@ -91,7 +91,7 @@ class ApplicationController < Sinatra::Base
       send_to = Account.find_by(phone: params[:receiver])
       send_amount = send_to.balance
 
-      send_to.balance = send_amount + params.text_massage
+      send_to.balance = send_amount + params[:text_massage]
       send_to.save
 
 

@@ -132,6 +132,8 @@ class ApplicationController < Sinatra::Base
     send_amount_to = send_from.balance
     send_from.balance = send_amount_to - params[:text_massage]
     send_from.save
+    
+    {sucess: "successfull"}.to_json
   end
 
 end

@@ -78,7 +78,7 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  post "/messages" do 
+  post "/messages/new" do 
     new_message = Message.create(
       text_massage: params[:text_massage],
       sender: params[:sender],

@@ -123,7 +123,7 @@ class ApplicationController < Sinatra::Base
     bal.to_json
   end
 
-  patch "/patch"
+  patch "/patch" do
     send_to = Account.find_by(phone: params[:receiver])
     send_amount = send_to.balance
     send_to.balance = send_amount + params[:text_massage]

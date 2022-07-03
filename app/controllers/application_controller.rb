@@ -20,10 +20,10 @@ class ApplicationController < Sinatra::Base
 
   def check_if_user_exist?(attr)
     user = User.find_by(attr[:phone])
-    if user.phone == attr[:phone]
-      true
-    else
+    if user == nil
       false
+    else
+      true
     end
   end
 
@@ -62,7 +62,7 @@ class ApplicationController < Sinatra::Base
 
   post "/users" do 
     if self.check_if_user_exist?(phone: params[:phone]) 
-      res = {respone: "User Exist"}
+      {response: "User Exist"}.to_json
     else
       new_user = User.create(
         # name: params[:name],

@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
   def login(attr)
     user = User.where(["phone = '%s' and password = '%s'", attr[:phone], attr[:password]]).first
     if user != nil
-      user
+      {username: user[:username], email: user[:email], phone: user[:phone]}
     else
       {data: "Error login"}
     end

@@ -11,7 +11,7 @@ class ApplicationController < Sinatra::Base
   # Add your routes here
   def login(attr)
     user = User.where(["phone = '%s' and password = '%s'", attr[:phone], attr[:password]]).first
-    if user.password == attr[:password]
+    if user != nil
       user
     else
       {data: "Error login"}
@@ -56,7 +56,6 @@ class ApplicationController < Sinatra::Base
 
   #login
   get "/login/:phone/:password" do
-    # { message: "Good luck with your project!" }.to_json
     phones = self.login(phone: params[:phone], password: params[:password])
     phones.to_json
   end

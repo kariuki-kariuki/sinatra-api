@@ -74,24 +74,19 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/users" do 
-    if self.check_if_user_exist?(phone: params[:phone]) 
-      {response: "User Exist"}.to_json
-    else
-      new_user = User.create(
-        # name: params[:name],
+      user = User.create(
         email: params[:email],
         image: params[:image],
         phone: params[:phone],
         password: params[:password],
         username: params[:username]
       )
-      new_user.save
+      user.save
 
       self.create_bot(phone: params[:phone])
-      self.create_contact(name: params[:username], phone: [:phone])
+      self.create_contact(name: params[:username], phone: params[:phone])
 
-      new_user.to_json
-    end
+    { username: user[:username], email: user[:email], phone: user[:phone] }.to_json
   end
 
   post "/messages/new" do 
@@ -106,6 +101,7 @@ class ApplicationController < Sinatra::Base
 
     msgs = get_messages(currentuser: params[:sender], activechat: params[:receiver])
     msgs.to_json
+    
   end
 
   post "/businesses" do 

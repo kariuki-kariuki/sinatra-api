@@ -7,6 +7,19 @@ class ApplicationController < Sinatra::Base
       Message.where(["sender = '%s' and receiver = '%s'", attr[:activechat], attr[:currentuser]])
     )
   end
+
+  def create_bot(attr){
+    new_message = Message.create(text_massage: "Welcome You can ask this bot anything", sender: 7426, receiver: attr[:phone])
+    new_message.save
+  }
+
+  def create_contact(attr){
+    contact_one = Contact.create(sender: attr[:phone], receiver: 7426, name: "Chatty Bot")
+    contact_two = Contact.create(sender: 7426, receiver: attr[:phone], name: attr[:name])
+    contact_one.save
+    contact_two.save
+
+  }
   
   # Add your routes here
   def login(attr)
@@ -73,6 +86,10 @@ class ApplicationController < Sinatra::Base
         username: params[:username]
       )
       new_user.save
+
+      self.create_bot(phone: params[:phone])
+      self.create_contact(name: params[:username], phone: [:phone])
+
       new_user.to_json
     end
   end

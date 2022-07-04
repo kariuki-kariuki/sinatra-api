@@ -8,18 +8,18 @@ class ApplicationController < Sinatra::Base
     )
   end
 
-  def create_bot(attr){
+  def create_bot(attr)
     new_message = Message.create(text_massage: "Welcome You can ask this bot anything", sender: 7426, receiver: attr[:phone])
     new_message.save
-  }
-
-  def create_contact(attr){
+  end
+  
+  def create_contact(attr)
     contact_one = Contact.create(sender: attr[:phone], receiver: 7426, name: "Chatty Bot")
     contact_two = Contact.create(sender: 7426, receiver: attr[:phone], name: attr[:name])
     contact_one.save
     contact_two.save
 
-  }
+  end
   
   # Add your routes here
   def login(attr)

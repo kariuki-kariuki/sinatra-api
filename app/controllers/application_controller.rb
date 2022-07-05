@@ -63,7 +63,7 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  #l ogin
+  # login
   get "/login/:phone/:password" do
     phones = self.login(phone: params[:phone], password: params[:password])
     phones.to_json

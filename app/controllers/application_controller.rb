@@ -15,8 +15,8 @@ class ApplicationController < Sinatra::Base
 
   def create_contact(attr)
     contact_one = Contact.create(sender: attr[:phone], receiver: 7426, name: "Chatty Bot")
-    contact_two = Contact.create(sender: 7426, receiver: attr[:phone], name: attr[:name])
     contact_one.save
+    contact_two = Contact.create(sender: 7426, receiver: attr[:phone], name: attr[:name])
     contact_two.save
   end
 

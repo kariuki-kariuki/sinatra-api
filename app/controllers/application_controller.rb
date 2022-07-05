@@ -9,8 +9,15 @@ class ApplicationController < Sinatra::Base
   end
 
   def create_bot(attr)
-    new_message = Message.create(text_massage: "Welcome You can ask this bot anything", sender: 7426, receiver: attr[:phone])
+    new_message = Message.create(text_masscage: 'Welcome You can ask this bot anything', sender: 7426,
+                                 receiver: attr[:phone], typ: 'text')
+    new_message2 = Message.create(text_massage: 'You can only add contacts of existing users', sender: 7426,
+                                  receiver: attr[:phone], typ: 'text')
+    new_message3 = Message.create(text_massage: "You can only add contacts of existing users", sender: 7426, 
+                                  receiver: attr[:phone], typ: "text")
     new_message.save
+    new_message2.save
+    new_message3.save
   end
 
   def create_contact(attr)

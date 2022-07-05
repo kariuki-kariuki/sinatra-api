@@ -77,10 +77,10 @@ class ApplicationController < Sinatra::Base
     user.save
     self.create_bot(phone: params[:phone])
     self.create_contact(name: params[:username], phone: params[:phone])
-    { username: user[:username], email: user[:email], phone: user[:phone] }.to_json
+    {username: user[:username], email: user[:email], phone: user[:phone]}.to_json
   end
 
-  post 'messages/new' do 
+  post "messages/new" do
     new_message = Message.create(
       text_massage: params[:text_massage],
       sender: params[:sender],
@@ -92,7 +92,7 @@ class ApplicationController < Sinatra::Base
     msgs.to_json
   end
 
-  post '/businesses' do 
+  post "/businesses" do 
     new_business = Business.create(
       item_name: params[:item_name],
       phone: params[:phone],
@@ -105,31 +105,31 @@ class ApplicationController < Sinatra::Base
     new_business.save
   end
 
-  get '/messages/?:currentuser/?:activechat' do
+  get "/messages/?:currentuser/?:activechat" do
     msgs = self.get_messages(currentuser: params[:currentuser], activechat: params[:activechat])
     msgs.to_json
   end
 
-  get '/balance/:phone' do
+  get "/balance/:phone" do
     bal = Account.find_by(phone: params[:phone])
     bal.to_json
   end
 
-  patch '/patch/receiver' do
+  patch "/patch/receiver" do
     send_to = Account.find_by(phone: params[:receiver])
     # amt = params[:text_massage]
     # puts amt
     send_amount = send_to.balance
     send_to.balance = send_amount.to_i + params[:text_massage].to_i
     send_to.save
-    { message: "successfull" }.to_json
+    {message: "successfull"}.to_json
   end
 
-  patch '/patch/sender' do
+  patch "/patch/sender" do
     send_from = Account.find_by(phone: params[:sender])
     send_amount_to = send_from.balance
     send_from.balance = send_amount_to.to_f - params[:text_massage].to_f
     send_from.save
-    { message: "successfull" }.to_json
+    {message: "successfull"}.to_json
   end
 end

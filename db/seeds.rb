@@ -26,7 +26,7 @@ Contact.create(sender: 742, receiver: 743, name: "John")
 Contact.create(sender: 742, receiver: 742075648,  name:"Sam")
 
 #seeding bots
-Contact.create(sender: 7426, receiver: 742,  name:"Chatty Bot")
-Contact.create(sender: 742, receiver: 7426,  name:"Wendy")
+Contact.create(sender: 7426, receiver: 742,  name:"Wendy")
+Contact.create(sender: 742, receiver: 7426,  name:"Chatty Bot")
 
 puts "✅ Done seeding!"

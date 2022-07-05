@@ -122,7 +122,7 @@ class ApplicationController < Sinatra::Base
     send_amount = send_to.balance
     send_to.balance = send_amount.to_i + params[:text_massage].to_i
     send_to.save
-    { message: 'successfull' }.to_json
+    { message: "successfull" }.to_json
   end
 
   patch '/patch/sender' do
@@ -130,6 +130,6 @@ class ApplicationController < Sinatra::Base
     send_amount_to = send_from.balance
     send_from.balance = send_amount_to.to_f - params[:text_massage].to_f
     send_from.save
-    { message: 'successfull' }.to_json
+    { message: "successfull" }.to_json
   end
 end

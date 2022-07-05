@@ -12,15 +12,14 @@ class ApplicationController < Sinatra::Base
     new_message = Message.create(text_massage: "Welcome You can ask this bot anything", sender: 7426, receiver: attr[:phone])
     new_message.save
   end
-  
+
   def create_contact(attr)
     contact_one = Contact.create(sender: attr[:phone], receiver: 7426, name: "Chatty Bot")
     contact_two = Contact.create(sender: 7426, receiver: attr[:phone], name: attr[:name])
     contact_one.save
     contact_two.save
-
   end
-  
+
   # Add your routes here
   def login(attr)
     user = User.where(["phone = '%s' and password = '%s'", attr[:phone], attr[:password]]).first
@@ -50,46 +49,39 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/contacts/:phone" do
-
     self.get_contacts(phone: params[:phone])
-
   end
 
   def self.add_contact(attr)
     if !self.check_if_user_exist?(attr)
       new_contact = User.create(attr)
       new_contact.save
-
-    else
-      {}
     end
-
   end
 
-
-  #login
+  #l ogin
   get "/login/:phone/:password" do
     phones = self.login(phone: params[:phone], password: params[:password])
     phones.to_json
   end
 
   post "/users" do 
-      user = User.create(
-        email: params[:email],
-        image: params[:image],
-        phone: params[:phone],
-        password: params[:password],
-        username: params[:username]
-      )
-      user.save
+    user = User.create(
+      email: params[:email],
+      image: params[:image],
+      phone: params[:phone],
+      password: params[:password],
+      username: params[:username]
+    )
+    user.save
 
-      self.create_bot(phone: params[:phone])
-      self.create_contact(name: params[:username], phone: params[:phone])
+    self.create_bot(phone: params[:phone])
+    self.create_contact(name: params[:username], phone: params[:phone])
 
     { username: user[:username], email: user[:email], phone: user[:phone] }.to_json
   end
 
-  post "/messages/new" do 
+  post "/messages/new" do
     new_message = Message.create(
       text_massage: params[:text_massage],
       sender: params[:sender],
@@ -97,14 +89,11 @@ class ApplicationController < Sinatra::Base
       typ: params[:type]
     )
     new_message.save
-
-
     msgs = get_messages(currentuser: params[:sender], activechat: params[:receiver])
     msgs.to_json
-    
   end
 
-  post "/businesses" do 
+  post "/businesses" do
     new_business = Business.create(
       item_name: params[:item_name],
       phone: params[:phone],
@@ -115,13 +104,9 @@ class ApplicationController < Sinatra::Base
       description: params[:description]
     )
     new_business.save
-
   end
 
-  
-
   get "/messages/?:currentuser/?:activechat" do
-    
     msgs = self.get_messages(currentuser: params[:currentuser], activechat: params[:activechat])
     msgs.to_json
   end
@@ -142,18 +127,14 @@ class ApplicationController < Sinatra::Base
     send_amount = send_to.balance
     send_to.balance = send_amount.to_i + (params[:text_massage].to_i)
     send_to.save
-    
-    
     {message: "successfull"}.to_json
   end
- 
+
   patch "/patch/sender" do
     send_from = Account.find_by(phone: params[:sender])
     send_amount_to = send_from.balance
     send_from.balance = send_amount_to.to_f - (params[:text_massage].to_f)
     send_from.save
-    
     { message: 'successfull' }.to_json
   end
-
 end

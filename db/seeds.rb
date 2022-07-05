@@ -6,7 +6,7 @@ User.create(username: 'Emkay', phone: 742_075_647, password: 'wueh', email: 'emk
 User.create(username: 'Sammy Doe', phone: 742_075_648, password: 'wueh', email: 'node@gmail.com')
 User.create(username: 'Wendy', phone: 742, password: 'wueh', email: 'emkay@gmail.com')
 User.create(username: 'John', phone: 743, password: 'wueh', email: 'emkay@gmail.com')
-User.create(username: 'Chatty Bot', phone: 742, password: 'wueh', email: 'chattyboat@gmail.com')
+User.create(username: 'Chatty Bot', phone: 7426, password: 'wueh', email: 'chattyboat@gmail.com')
 
 Message.all.delete_all
 Message.create(text_massage: 'Hello Emkay', sender: 742, receiver: 742_075_647, typ: 'text')
